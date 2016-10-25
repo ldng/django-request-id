@@ -49,7 +49,7 @@ class RequestIdMiddleware(object):
 
         http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
         """
-        supported_backends = ['django.db.backends.postgresql_psycopg2']
+        supported_backends = ['django.db.backends.postgresql_psycopg2', 'django.contrib.gis.db.backends.postgis']
 
         dbs = getattr(settings, 'DATABASES', [])
 
