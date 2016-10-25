@@ -45,20 +45,20 @@ class RequestIdMiddleware(object):
         return response
 
     def set_application_name(self, request_id):
-         """Set the application_name on PostgreSQL connection to propagate request_id to postgresql
+        """Set the application_name on PostgreSQL connection to propagate request_id to postgresql
 
-         http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
-         """
-         supported_backends = ['django.db.backends.postgresql_psycopg2']
+        http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+        """
+        supported_backends = ['django.db.backends.postgresql_psycopg2']
 
-         dbs = getattr(settings, 'DATABASES', [])
+        dbs = getattr(settings, 'DATABASES', [])
 
-         # lookup over all the databases entry
-         for db in dbs.keys():
-             if dbs[db]['ENGINE'] in supported_backends:
-                 try:
-                     options = dbs[db]['OPTIONS']
-                 except KeyError:
-                     options = {}
+        # lookup over all the databases entry
+        for db in dbs.keys():
+            if dbs[db]['ENGINE'] in supported_backends:
+                try:
+                    options = dbs[db]['OPTIONS']
+                except KeyError:
+                    options = {}
 
-                 dbs[db]['OPTIONS'].update({'application_name': request_id})
+                dbs[db]['OPTIONS'].update({'application_name': request_id})
