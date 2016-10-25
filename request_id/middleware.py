@@ -2,6 +2,8 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from django.conf import settings
+
 from . import generate_request_id, local, release_local
 from .conf import REQUEST_ID_HEADER
 
@@ -42,10 +44,10 @@ class RequestIdMiddleware(object):
         release_local(local)
         return response
 
-     def set_application_name(request_id):
+     def set_application_name(self, request_id):
          """Set the application_name on PostgreSQL connection to propagate request_id to postgresql
 
-         http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS 
+         http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
          """
          supported_backends = ['django.db.backends.postgresql_psycopg2']
 
@@ -59,4 +61,4 @@ class RequestIdMiddleware(object):
                  except KeyError:
                      options = {}
 
-                 dbs[db]['OPTIONS'].update({opt_name: request_id})
+                 dbs[db]['OPTIONS'].update({'application_name': request_id})
