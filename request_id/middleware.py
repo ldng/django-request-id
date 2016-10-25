@@ -44,7 +44,7 @@ class RequestIdMiddleware(object):
         release_local(local)
         return response
 
-     def set_application_name(self, request_id):
+    def set_application_name(self, request_id):
          """Set the application_name on PostgreSQL connection to propagate request_id to postgresql
 
          http://www.postgresql.org/docs/9.4/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
